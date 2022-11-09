@@ -1,3 +1,5 @@
+package getterSetter;
+
 import java.util.Scanner;
 
 public class BuyCruiseTicket {
@@ -6,7 +8,6 @@ public class BuyCruiseTicket {
 	double cruisePriceForAdults;
 	double cruisePriceForchildren;
 	int cruiseDaysOfStay;
-	
 
 	Scanner scn = new Scanner(System.in);
 
@@ -18,9 +19,10 @@ public class BuyCruiseTicket {
 		cruiseDaysOfStay = cruiseDaysofStay;
 
 	}
-	BuyCruiseTicket()
-	{}
-	
+
+	BuyCruiseTicket() {
+	}
+
 	double adultDinnerBuffetMeals = 20.99;
 	double kidsDinnerBuffetMeals = 4.99;
 
@@ -66,20 +68,20 @@ public class BuyCruiseTicket {
 
 		double totalPrice = finalAdultPrice + finalChildrenPrice + finalBuffetAdultPrice + finalBuffetChildrenPrice;
 		System.out.println("Your Package includes:");
-		System.out.println("Scenic Cruise Adults 		@ " + userInputNumOfAdults + "   :" + (finalAdultPrice));
+		System.out.println("Scenic Cruise Adults @ " + userInputNumOfAdults + "   :" + (finalAdultPrice));
 		if (childArrayCounter > 0) {
 			System.out.println("Scenic Cruise Children above 5 @ " + childArrayCounter + "    :" + finalChildrenPrice);
 		}
 		if (buffetMarker == 1) {
-			System.out.println(
-					"Buffet Special Price Adults	@ " + userInputNumOfAdults + "   :" + finalBuffetAdultPrice);
+			System.out
+					.println("Buffet Special Price Adults @ " + userInputNumOfAdults + "   :" + finalBuffetAdultPrice);
 		}
 		if (childArrayCounter > 0 && buffetMarker == 1) {
 			System.out.println("Buffet Special Price Children above 5 @ " + childArrayCounter + "    :"
 					+ finalBuffetChildrenPrice);
 		}
 		System.out.println("Total Price      :" + totalPrice);
-		System.out.println("HST	@ 15%      :" + (0.15 * totalPrice));
+		System.out.println("HST @ 15%      :" + (0.15 * totalPrice));
 		System.out.println("Final Price     :" + ((0.15 * totalPrice) + totalPrice));
 
 	}
