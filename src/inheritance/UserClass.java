@@ -1,91 +1,90 @@
 package inheritance;
 
 import java.util.Scanner;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 public class UserClass {
 
-	String emailForUserRegistration;
-	String passwordForUserRegistration;
-	String nameForUserRegistration;
-	String phoneNumberForUserRegistration;
-	int noOfAdults;
-	int noOfChildren;
-	int noOfAdultsCruise;
-	int noOfChildrenCruise;
-	boolean adultErrorMessage;
-	boolean childErrorMessage;
+	private String emailForUserRegistration,passwordForUserRegistration,nameForUserRegistration,phoneNumberForUserRegistration;
+	protected int noOfAdults,noOfChildren,noOfAdultsCruise,noOfChildrenCruise,counter;
+	private boolean errorMessage;
 	Scanner scn = new Scanner(System.in);
+	NumberFormat formatter = new DecimalFormat("#0.00");
 
-	public boolean setUserNumber(int noOfAdults, int noOfChildren) {
-		this.noOfAdults = noOfAdults;
-		this.noOfChildren = noOfChildren;
-		return true;
+	protected void setUserRegistration(String emailForUserRegistration,String passwordForUserRegistration,String nameForUserRegistration,String phoneForUserRegistration) {
+		
+		setUserEmailAddress(emailForUserRegistration);
+		setUserPassword(passwordForUserRegistration);
+		setUserName(nameForUserRegistration);
+		setUserPhoneNumber(phoneForUserRegistration);
+		thankYouMessage();
 	}
-
-	public void userRegistration() {
-
-		System.out.println("Welcome to online Booking.\n" + "Please sign up to procced with booking.\n"
-				+ "Enter your email address:");
-		emailForUserRegistration = scn.next();
-		System.out.println("Enter the password that you want to use:");
-		passwordForUserRegistration = scn.next();
-		System.out.println("Enter your Full Name:");
-		nameForUserRegistration = scn.next();
-		System.out.println("Enter your phone number:");
-		phoneNumberForUserRegistration = scn.next();
-		System.out.println("Thank you for registering!");
+	
+	private void setUserName(String nameForUserRegistration) {
+		this.nameForUserRegistration = nameForUserRegistration;
 	}
-
-	public int numofAdults(String suiteSelection) {
+	private void setUserPhoneNumber(String phoneNumberForUserRegistration) {
+		this.phoneNumberForUserRegistration = phoneNumberForUserRegistration;
+	}
+	private void setUserEmailAddress(String emailForUserRegistration) {
+		this.emailForUserRegistration = emailForUserRegistration;
+	}
+	private void setUserPassword(String passwordForUserRegistration) {
+		this.passwordForUserRegistration = passwordForUserRegistration;
+	}
+	private void thankYouMessage() {
+	System.out.println("Thank you for registering!");
+	}
+	public void hotelSuite()
+	{}
+	
+	protected String cruiseSevice()
+	{return null;}
+	protected int numofAdults(String suiteSelection) {
 
 		do {
+			errorMessage = false;
 			System.out.println("Enter the number of adults :");
 			noOfAdults = scn.nextInt();
-			adultErrorMessage = false;
-			if (suiteSelection.equalsIgnoreCase("Family_Suite")) {
-				if (noOfAdults > 4) {
-					adultErrorMessage(suiteSelection);
-				}
-			} else if (suiteSelection.equalsIgnoreCase("Delux_Suite")) {
-				if (noOfAdults > 2) {
-					adultErrorMessage(suiteSelection);
-				}
-			}
-		} while (adultErrorMessage);
+			occupancyCheck(suiteSelection);
+		} while (errorMessage);
 		return noOfAdults;
 	}
 
-	public int numofChildren(String suiteSelection) {
-
+	protected int numofChildren(String suiteSelection) {
 		do {
+			errorMessage = false;
 			System.out.println("Enter the number of children :");
 			noOfChildren = scn.nextInt();
-			childErrorMessage = false;
-
-			if (suiteSelection.equalsIgnoreCase("Family_Suite")) {
-				if (noOfChildren > 4) {
-					childErrorMessage(suiteSelection);
-				}
-			} else if (suiteSelection.equalsIgnoreCase("Delux_Suite")) {
-				if (noOfChildren > 2) {
-					childErrorMessage(suiteSelection);
-				}
-			}
-		} while (childErrorMessage);
+			occupancyCheck(suiteSelection);
+		} while (errorMessage);
 		return noOfChildren;
 
 	}
 
-	public void adultErrorMessage(String suiteSelection) {
-		System.out.println(
-				"Number of adults is above the prescribed " + suiteSelection + " room limit, please try again ");
-		adultErrorMessage = true;
+	private void occupancyCheck(String suiteSelection) {
+		if (suiteSelection.equalsIgnoreCase("Family_Suite")) {
+			if (noOfChildren > 4 || noOfAdults > 4) {
+				errorMessage(suiteSelection);
+			}
+		} else if (suiteSelection.equalsIgnoreCase("Delux_Suite")) {
+			if (noOfChildren > 2 || noOfAdults > 2) {
+				errorMessage(suiteSelection);
+			}
+		}
 	}
 
-	public void childErrorMessage(String suiteSelection) {
-		System.out.println(
-				"Number of Children is above the prescribed " + suiteSelection + " room limit, please try again ");
-		childErrorMessage = true;
+	private void errorMessage(String suiteSelection) {
+		System.out.println("Number is above the prescribed " + suiteSelection + " room limit, please try again ");
+		errorMessage = true;
+	}
+	
+	protected void counter()
+	{counter++;
+	if (counter>3)
+	{System.out.println("Maximum attempts exeeded, program terminating!");
+	System.exit(0);}
 	}
 
 }

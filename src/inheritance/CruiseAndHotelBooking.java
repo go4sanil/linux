@@ -1,110 +1,89 @@
 package inheritance;
-
 import java.util.Scanner;
-
 public class CruiseAndHotelBooking {
-
 	public static void main(String[] args) {
-
-		Scanner scn = new Scanner(System.in);
+		
 		String bookCruiseOrHotel;
 		String continueBooking;
-		UserClass usc = new UserClass();
-		usc.userRegistration();
 		String userCruiseSelection = "";
-		String input = "";
-		int numOfAdults;
-		int numOfChildren;
-		HotelMain htm = new HotelMain();
-		boolean tempVariable = false;
-		HotelDeluxSuite hoteldeluxsuite = new HotelDeluxSuite();
-		HotelFamilySuite hotelfamilysuite = new HotelFamilySuite();
-		CruiseMain cruisemain = new CruiseMain();
-		DiscoveryCruise discoverycruise = new DiscoveryCruise();
-		SunsetCruise sunsetcruise = new SunsetCruise();
-		ScenicCruise sceniccruise = new ScenicCruise();
-		MysteryCruise mysterycruise = new MysteryCruise();
+		String userInputYesOrNo = "";
+		UserClass userclass = new UserClass();
+		Scanner scn = new Scanner(System.in);
+		String suiteSelection = "";
+	
+		
+		/*System.out.println("Welcome to online Booking.\n" + "Please sign up to procced with booking.\n"
+				+ "Enter your email address:");
+		String emailForUserRegistration = scn.next();
+		System.out.println("Enter the password that you want to use:");
+		String passwordForUserRegistration = scn.next();
+		System.out.println("Enter your Full Name:");
+		String nameForUserRegistration = scn.next();
+		System.out.println("Enter your phone number:");
+		String phoneForUserRegistration = scn.next();
+		userclass.setUserRegistration(emailForUserRegistration,passwordForUserRegistration,nameForUserRegistration,phoneForUserRegistration);
+		*/
 		do {
 			do {
 
-				System.out.println("Please enter the service you want to book Hotel_Stay/Cruise");
+				System.out.println("Please enter the service you want to book Hotel/Cruise");
 				bookCruiseOrHotel = scn.next();
-				if (!bookCruiseOrHotel.equalsIgnoreCase("Hotel_Stay")
+				if (!bookCruiseOrHotel.equalsIgnoreCase("Hotel")
 						&& !bookCruiseOrHotel.equalsIgnoreCase("Cruise")) {
 					System.out.println("Invalid entry, please try again!");
+					userclass.counter();
 				}
-			} while (!bookCruiseOrHotel.equalsIgnoreCase("Hotel_Stay")
+			} while (!bookCruiseOrHotel.equalsIgnoreCase("Hotel")
 					&& !bookCruiseOrHotel.equalsIgnoreCase("Cruise"));
 
-			if (bookCruiseOrHotel.equalsIgnoreCase("Hotel_Stay")) {
-
-				String suiteSelection = htm.hotelroomSelection();
-
-				if (suiteSelection.equalsIgnoreCase("Delux_Suite")) {
-
-					numOfAdults = hoteldeluxsuite.numofAdults(suiteSelection);
-					numOfChildren = hoteldeluxsuite.numofChildren(suiteSelection);
-					tempVariable = hoteldeluxsuite.setUserNumber(numOfAdults, numOfChildren);
-					hoteldeluxsuite.finalPrice();
-				} else {
-
-					numOfAdults = hotelfamilysuite.numofAdults(suiteSelection);
-					numOfChildren = hotelfamilysuite.numofChildren(suiteSelection);
-					tempVariable = hotelfamilysuite.setUserNumber(numOfAdults, numOfChildren);
-					hotelfamilysuite.finalPrice();
-				}
+			if (bookCruiseOrHotel.equalsIgnoreCase("Hotel")) {
+				System.out.println("Please enter the room you want to select" + "\n"
+						+ "Delux: accommodates 2 adults and 2 children at the rate of $180/ night" + "\n"
+						+ "Family: accommodates 4 adults and 4 children at $230/ night.");
+				suiteSelection = scn.next();
+				
+				switch (suiteSelection) {
+				case "delux":
+					userclass = new HotelDeluxSuite();
+					break;
+				case "Family":
+					userclass = new HotelDeluxSuite();
+					break;
+				default:
+					System.out.println("Invalid input, please try again");
+					userclass.counter();
+					break;
+					
+					
+				} 
+				userclass.hotelSuite();
+				
 			} else {
 				do {
-					userCruiseSelection = cruisemain.cruiseClass();
-
-					switch (userCruiseSelection) {
+					System.out.println(
+							"We offer 4 different packages as displayed below. Please enter the cruise that you want to select:\r\n"
+									+ "Scenic_Cruise\r\n" + "Sunset_Cruise\r\n" + "Discovery_Cruise\r\n" + "Mystery_Cruise\r\n");
+					String cruiseNameUserInput = scn.next();
+					
+					switch (cruiseNameUserInput) {
 					case "Scenic_Cruise":
-						input = sceniccruise.spaSevice();
-						if (input.equalsIgnoreCase("Y")) {
-
-							numOfAdults = sceniccruise.numofAdults(userCruiseSelection);
-							numOfChildren = sceniccruise.numofChildren(userCruiseSelection);
-							tempVariable = sceniccruise.setUserNumber(numOfAdults, numOfChildren);
-							sceniccruise.finalPrice();
-						}
+						userclass = new ScenicCruise();
 						break;
 					case "Sunset_Cruise":
-						input = sunsetcruise.candleLightDinner();
-						if (input.equalsIgnoreCase("Y")) {
-
-							numOfAdults = sunsetcruise.numofAdults(userCruiseSelection);
-							numOfChildren = sunsetcruise.numofChildren(userCruiseSelection);
-							tempVariable = sunsetcruise.setUserNumber(numOfAdults, numOfChildren);
-							sunsetcruise.finalPrice();
-						}
+						userclass = new SunsetCruise();
 						break;
 					case "Discovery_Cruise":
-						input = discoverycruise.adventureGameFee();
-						if (input.equalsIgnoreCase("Y")) {
-
-							numOfAdults = discoverycruise.numofAdults(userCruiseSelection);
-							numOfChildren = discoverycruise.numofChildren(userCruiseSelection);
-							tempVariable = discoverycruise.setUserNumber(numOfAdults, numOfChildren);
-							discoverycruise.finalPrice();
-						}
+						userclass = new DiscoveryCruise();
 						break;
 					case "Mystery_Cruise":
-						input = mysterycruise.casinoEntry();
-						if (input.equalsIgnoreCase("Y")) {
-
-							numOfAdults = mysterycruise.numofAdults(userCruiseSelection);
-							numOfChildren = mysterycruise.numofChildren(userCruiseSelection);
-							tempVariable = mysterycruise.setUserNumber(numOfAdults, numOfChildren);
-							mysterycruise.finalPrice();
-						}
+						userclass = new MysteryCruise();
 						break;
-
 					default:
 						System.out.println("Invalid input, please try again");
+						userclass.counter();
 						break;
-
-					}
-				} while (!input.equalsIgnoreCase("Y"));
+					}userclass.cruiseSevice();
+				} while (!userInputYesOrNo.equals("delux")&& !userInputYesOrNo.equals("family")&& !userInputYesOrNo.equals("Scenic_Cruise")&& !userInputYesOrNo.equals("Sunset_Cruise")&& !userInputYesOrNo.equals("Discovery_Cruise")&& !userInputYesOrNo.equals("MysteryCruise"));
 			}
 			System.out.println("Do you want to book another Hotel Room or Cruise ?(yes/no)");
 			continueBooking = scn.next();

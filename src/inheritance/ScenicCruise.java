@@ -1,60 +1,31 @@
 package inheritance;
 
-public class ScenicCruise extends CruiseMain  {
-	
-	String cruiseName = "Scenic_Cruise";
-	String cruiseService = "Spa_Service";
-	int spaCharge = 50;
+public class ScenicCruise extends CruiseMain {
+	private String cruiseName = "Scenic_Cruise";
+	private String cruiseService = "Spa_Service";
+	private int spaCharge = 50;
 	private double cruisePriceForAdults = 43.99;
 	private double cruisePriceForchildren = 12.99;
-	int cruiseDaysOfStay = 3;
-	
+	private int cruiseDaysOfStay = 3;
+	private double totalServiceFee;
+	private String cruiseYesOrNoInput = "";
+	private int numOfAdults;
+	private int numOfChildren;
 
-	public String spaSevice() {
-		System.out.println(
-				cruiseName + " is offering for adults " +cruiseService + " " + spaCharge+ "$ per person. Would you like to go for this option ? (yes/no)");
-		String isOptingSpaService = scn.next();
-
-		if (isOptingSpaService.equalsIgnoreCase("Yes")) {
-			System.out.println("The cruise that you have selected is " + this.cruiseName + " which is a "
-					+ this.cruiseDaysOfStay + " day cruise" + " with " + this.cruiseService + " (" + spaCharge
-					+ "$) fee per person\r\n" + "Price for Adults(greater than 12): " + this.cruisePriceForAdults
-					+ " per day\r\n" + "Price for kids above 5: " + cruisePriceForchildren + " per day\r\n"
-					+ "Please press 'Y' if you want to continue with the selection or press any other key to select another.");
-			cruiseYesOrNoInput = scn.next();
-			return cruiseYesOrNoInput;
+	protected String cruiseSevice() {
+		cruiseYesOrNoInput = needCruiseService(cruiseName, cruiseService, spaCharge, cruiseDaysOfStay, cruisePriceForAdults,
+				cruisePriceForchildren);
+		if (cruiseYesOrNoInput.equalsIgnoreCase("Y")) {
+			priceCalculation();
 		}
-
-		else {
-			System.out.println("The cruise that you have selected is " + this.cruiseName + " which is a "
-					+ this.cruiseDaysOfStay + " day cruise\r\n" + "Price for Adults(greater than 12): "
-					+ this.cruisePriceForAdults + " per day\r\n" + "Price for kids above 5: " + cruisePriceForchildren
-					+ " per day\r\n"
-					+ "Please press 'Y' if you want to continue with the selection or press any other key to select another.");
-			cruiseYesOrNoInput = scn.next();
-			return cruiseYesOrNoInput;
-		}
-		
-		}
-	
-public void finalPrice() {
-	
-
-		preBookDinnerBuffet();
-		double totalServiceFee = cruiseServices(cruiseName,cruiseYesOrNoInput,spaCharge); 
-		
-		System.out.println("Your Package includes:");
-		System.out.println(this.cruiseName +" " +"Adults	@" + super.noOfAdults + ":  "+(this.cruiseDaysOfStay*this.cruisePriceForAdults*super.noOfAdults)+"$");
-		System.out.println(this.cruiseName +" " +"Children	@" + super.noOfChildren + ":  "+(this.cruiseDaysOfStay*this.cruisePriceForchildren*super.noOfChildren)+"$");
-		double totalBuffetPrice=priceCalcDinnerBuffet();
-		if(totalServiceFee>0)
-		{
-			System.out.println(this.cruiseName + " " +this.cruiseService + " for Adults@" + (super.noOfAdults) + " :  "+totalServiceFee+"$");	
-		}
-		double totalPrice = totalServiceFee + totalBuffetPrice +(this.cruiseDaysOfStay*((this.cruisePriceForAdults*noOfAdults)) + (this.cruisePriceForchildren*noOfChildren));
-		System.out.println("Total Price  :  " +totalPrice +"$");
-		System.out.println("HST	@ 18%    :  " +(totalPrice*.18) +"$");
-		System.out.println("Final Price	 :  " +(totalPrice*1.18) +"$" );
+		return cruiseYesOrNoInput;
 	}
 
+	private void priceCalculation() {
+		numOfAdults = numofAdults(cruiseName);
+		numOfChildren = numofChildren(cruiseName);
+		totalServiceFee = cruiseServicesFee(cruiseYesOrNoInput, spaCharge);
+		preBookDinnerBuffet();
+		finalPriceCalculation(cruiseName, cruiseService, noOfAdults, noOfChildren, cruiseDaysOfStay, cruisePriceForAdults,cruisePriceForchildren, totalServiceFee);
+	}
 }
